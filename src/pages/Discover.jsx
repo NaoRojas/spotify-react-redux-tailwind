@@ -1,15 +1,17 @@
 import { Error, Loader, SongCard } from '../components'
 import { genres } from '../assets/constants'
 import { useGetTopChartsQuery } from '../redux/services/shazamCore'
+import { useDispatch, useSelector } from 'react-redux'
 
 const Discover = () => {
+  const { activeSong, isPlaying } = useSelector((state) => state.player)
   const { data, isFetching, error } = useGetTopChartsQuery()
 
   if (isFetching) return <Loader title="Loading songs" />
   if (error) return <Error />
   return (
     <div className="flex flex-col">
-      <div className="w-full flex justity-between sm:flex-row flex-col mt-4 mb-10">
+      <div className="w-full justity-between sm:flex-row flex-col mt-4 mb-10">
         <h2 className="font-bold text-3xl text-white text-left">Discover</h2>
         <select
           className="bg-black rounded-lg outline-none text-gray-300 p-3 text-sm sm:mt-0 mt-5"
@@ -25,6 +27,9 @@ const Discover = () => {
           {data?.data.map((song, i) => (
             <SongCard
               key={song}
+              data={data}
+              activeSong={activeSong}
+              isPlaying={isPlaying}
               song={{
                 ...song,
                 src: song.attributes.artwork.url.replace(
