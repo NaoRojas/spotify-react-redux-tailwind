@@ -8,11 +8,12 @@ module.exports = {
     ecmaFeatures: {
       jsx: true,
     },
-    ecmaVersion: 'latest',
+    ecmaVersion: 'latesst',
     sourceType: 'module',
   },
   plugins: ['react'],
   rules: {
+    'semicolon': false,
     'max-len': 0,
     'no-param-reassign': 0,
     'jsx-a11y/label-has-associated-control': 0,
